@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, flash
 from flask_mysqldb import MySQL
 from flask_bootstrap import Bootstrap
 import yaml
@@ -25,13 +25,17 @@ app.config['SECRET_KEY'] = os.urandom(24)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        form = request.form
-        name = form['name']
-        age = form['age']
-        cursor = mysql.connection.cursor()
-        name = generate_password_hash(name)
-        cursor.execute("INSERT INTO employee(name, age) VALUES(%s, %s)", (name, age))
-        mysql.connection.commit()
+        try:
+            form = request.form
+            name = form['name']
+            age = form['age']
+            cursor = mysql.connection.cursor()
+            # name = generate_password_hash(name) # hashing password
+            cursor.execute("INSERT INTO employee(name, age) VALUES(%s, %s)", (name, age))
+            mysql.connection.commit()
+            flash('Your data is successfully inserted!', 'success')
+        except:
+            flash('Something was failed. Try again!', 'danger')
     return render_template('index.html')
 
 

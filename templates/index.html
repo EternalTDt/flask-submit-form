@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
-{% block body %}
-    <form method="POST">
-        Name: <input type="text" name="name">
-        Age: <input type="text" name="age">
-        <input type="submit">
-    </form>
-{% endblock body %}
+{% block title %} Home {% endblock title %}
+
+{% block sub_content %}
+    <div class="container">
+        <form method="POST">
+            <div class="form-group">
+                <label for="pass">Password</label>
+                <input type="password" name="name" id="pass" class="form-control form-control-md col-sm-4 mb-3" placeholder="input your password">
+                <label for="age">Age</label> 
+                <input type="text" name="age" id="age" class="form-control form-control-md col-sm-4 mb-3" placeholder="input your age">
+                <input type="submit" class="btn btn-outline-dark">
+            </div>
+        </form>
+    </div>
+{% endblock sub_content %}
